@@ -8,7 +8,13 @@ all: asm libblake3.a
 libblake3.a: build/blake3.o build/blake3_dispatch.o build/blake3_hash.o build/blake3_portable.o asm
 	ar rcs libblake3.a $(wildcard build/*)
 
-asm:
+BLAKE3/c/blake3.c: BLAKE3
+BLAKE3/c/blake3_dispatch.c: BLAKE3
+BLAKE3/c/blake3_portable.c: BLAKE3
+BLAKE3:
+	git clone https://github.com/prokopschield/BLAKE3
+
+asm: BLAKE3
 	mkdir -p build/
 	cd build && $(CC) $(CFLAGS) -c ../BLAKE3/c/blake3_sse2_x86-64_unix.S ../BLAKE3/c/blake3_sse41_x86-64_unix.S ../BLAKE3/c/blake3_avx2_x86-64_unix.S ../BLAKE3/c/blake3_avx512_x86-64_unix.S
 
