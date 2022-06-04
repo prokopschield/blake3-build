@@ -1,6 +1,6 @@
 #include "./blake3_hash.h"
 
-extern void blake3_hash(const void* restrict data, const size_t len, uint8_t hash[BLAKE3_OUT_LEN])
+extern void blake3_hash(const void* data, const size_t len, uint8_t hash[BLAKE3_OUT_LEN])
 {
     static blake3_hasher hasher;
     blake3_hasher_init(&hasher);
